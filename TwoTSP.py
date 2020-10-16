@@ -20,29 +20,34 @@ Last Modified: 16/10/2020
 from Problem import Problem
 
 class TwoTSP(Problem):
-    def __init__(instance, llbp, heu):
+    def __init__(self, instance, llbp, heu):
         super(instance)
         
         # TODO: maybe not the best way to do that. Just import the functions?
         self.llbp = llbp
         self.heu = heu
     
-    def init_mult(value):
+    def init_mult(self, value):
         return {k:value for k in self.ins.keys()}
     
-    def solve_llbp(mult):
+    def solve_llbp(self, mult, max_time):
 		# Calculating lagrangian costs
-		lc = {k : self.ins[k]+mult[k] for k in self.ins.keys()}		
-        return self.llbp(lc, mult)
+		lc = {k : self.ins[k]+mult[k] for k in self.ins.keys()}
+        
+        # Solve LLBP and subtract linear term from cost.
+        cost, solution = self.llbp(lc, max_time)
+        cost -= sum(mult.values())
+        
+        return cost, solution
     
-    def check_viability(sol):
+    def check_viability(self, sol):
 		# TODO: implement
 		raise NotImplementedError
     
-    def lg_heu(sol):
+    def lg_heu(self, sol):
         return self.heu(self.ins, sol)
     
-    def subgradients(mult, sol):
+    def subgradients(self, mult, sol):
         subgrad = {}
         sub_sum = 0
         
@@ -55,7 +60,7 @@ class TwoTSP(Problem):
             
         return subgrad, sub_sum
         
-    def update_mult(mult, subgrad, step):
+    def update_mult(self, mult, subgrad, step):
 		new_mult = lambda k : max(0, mult[k] + step*subgrad[k])
         return {k : new_mult(k) for k in self.ins.keys()}
 

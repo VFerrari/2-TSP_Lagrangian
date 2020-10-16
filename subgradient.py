@@ -31,6 +31,10 @@ EPS = 0.0005
  Solutions and dual bounds acquired through Lagrangian Relaxation.
  Takes Problem instance, execution time limit (in seconds).
  Returns the best solution and dual bound found within time "max_time".
+ 
+ Some optimizations are described in the "Lagrangian Relaxation" article
+ by J.E. Beasley, in the "Modern Heuristic Techniques for Combinatorial
+ Problems" book, pages 243-303, 1993.
 '''
 def subgradient_method(problem, max_time):
     
@@ -43,7 +47,7 @@ def subgradient_method(problem, max_time):
     while pi > MIN_PI and curr_time(start_time) < max_time and problem.gap() >= 1:
         
         # 2 - Solve LLBP with lagrangian costs.
-        dual, sol = problem.solve_llbp(mult)
+        dual, sol = problem.solve_llbp(mult, max_time)
 
         # 3 - Update best dual if possible
         n_iter += 1
@@ -71,6 +75,6 @@ def subgradient_method(problem, max_time):
     
         # 6 - Update lagrange multipliers
         step = pi*((1+EPS)*problem.primal - problem.dual)/sub_sum
-        mult = problem.update_mult(mult, subgrad, sub_sum)
+        mult = problem.update_mult(mult, subgrad, step)
     
     return problem
