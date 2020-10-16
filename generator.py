@@ -20,6 +20,7 @@ Last Modified: 15/10/2020
 
 import random
 from math import sqrt
+from TwoTSP import TwoTSP
 
 def generate_instance(n_points, seed_value):
 
@@ -32,5 +33,9 @@ def generate_instance(n_points, seed_value):
 			sqrt(sum((points[i][k]-points[j][k])**2 for k in range(2)))
 			for i in range(n_points) for j in range(i)}
 	
-	return dist
+	# TODO: not sure if this works.
+	for i,j in dist.keys():
+		dist[j,i] = dist[i,j]
+	
+	return TwoTSP(dist, None, None)
 
