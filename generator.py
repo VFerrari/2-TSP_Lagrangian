@@ -34,8 +34,8 @@ def generate_instance(n_points, seed_value):
             for i in range(n_points) for j in range(i)}
     
     # TODO: not sure if this works.
-    for i,j in dist.keys():
-        dist[j,i] = dist[i,j]
+    #for i,j in dist.keys():
+    #    dist[j,i] = dist[i,j]
     
     return TwoTSP(dist, None, None)
 
