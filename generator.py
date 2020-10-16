@@ -15,10 +15,10 @@ Authors:
 
 University of Campinas - UNICAMP - 2020
 
-Last Modified: 15/10/2020
+Last Modified: 16/10/2020
 '''
 
-import random
+from random import uniform
 from math import sqrt
 from TwoTSP import TwoTSP
 
@@ -26,7 +26,7 @@ def generate_instance(n_points, seed_value):
 
     # Create n random points
     random.seed(seed_value)
-    points = [(random.uniform(0, 1), random.uniform(0, 1)) for i in range(n_points)]
+    points = [(uniform(0, 1), uniform(0, 1)) for i in range(n_points)]
     
     # Dictionary of Euclidean distance between each pair of points
     dist = {(i, j):

@@ -56,7 +56,6 @@ class TwoTSP(Problem):
         return subgrad, sub_sum
         
     def update_mult(mult, subgrad, step):
-        for k in self.ins.keys():
-            mult[k] = max(0, mult[k] + step*subgrad[k])
-        return mult
+		new_mult = lambda k : max(0, mult[k] + step*subgrad[k])
+        return {k : new_mult(k) for k in self.ins.keys()}
 
