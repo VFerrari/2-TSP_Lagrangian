@@ -30,23 +30,25 @@ class TwoTSP(Problem):
     def init_mult(value):
         return {k:value for k in self.ins.keys()}
     
-    def lg_costs(mult):
-        # TODO: implement
-        return NotImplementedError
+    def solve_llbp(mult):
+		# Calculating lagrangian costs
+		lc = {k : self.ins[k]+mult[k] for k in self.ins.keys()}		
+        return self.llbp(lc, mult)
     
-    def solve_llbp(lc):
-        return self.llbp(self.ins, lc)
+    def check_viability(sol):
+		# TODO: implement
+		raise NotImplementedError
     
     def lg_heu(sol):
         return self.heu(self.ins, sol)
     
-    def subgradients(mult):
+    def subgradients(mult, sol):
         subgrad = {}
         sub_sum = 0
         
         # Calculate subgradients
         for k in self.ins.keys():
-            # TODO: implement subgradient calculation
+            # TODO: implement subgradient calculation from solution.
             #sub = subgradient(k, sol)
             subgrad[k] = 0 if sub < 0 and mult[k] == 0 else sub
             sub_sum += subgrad[k]*subgrad[k]

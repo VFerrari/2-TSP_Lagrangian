@@ -31,20 +31,20 @@ class Problem(object):
     def init_mult(value):
         raise NotImplementedError
     
-    # Calculates lagrangian costs for the problem, given the multipliers.
-    def lg_costs(mult):
+    # Solves the Lagrangian Primal Problem, returns solution and its cost.
+    def solve_llbp(mult):
         raise NotImplementedError
     
-    # Solves the Lagrangian Primal Problem, returns solution and its cost.
-    def solve_llbp(lc):
-        raise NotImplementedError
+    # Check viability of solution for the original problem.
+    def check_viability(sol):
+		raise NotImplementedError
     
     # Lagrangian Heuristic to viabilize dual solution.
     def lg_heu(sol):
         raise NotImplementedError
     
     # Subgradient calculation method.
-    def subgradients(mult):
+    def subgradients(mult, sol):
         raise NotImplementedError
     
     # Multiplier update method.

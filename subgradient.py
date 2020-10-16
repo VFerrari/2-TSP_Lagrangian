@@ -42,39 +42,34 @@ def subgradient_method(problem, max_time):
     # End conditions: pi too small, too much time elapsed and optimum found.
     while pi > MIN_PI and curr_time(start_time) < max_time and problem.gap() >= 1:
         
-        # 2 - Calculate lagrangian costs
-        lc = problem.lg_costs(mult)
-        
-        # 3 - Solve LLBP
-        dual, sol = problem.solve_llbp(lc)
+        # 2 - Solve LLBP with lagrangian costs.
+        dual, sol = problem.solve_llbp(mult)
 
-        # TODO: unify steps 2 and 3?
-
-        # 4 - Update best dual if possible
+        # 3 - Update best dual if possible
         n_iter += 1
         if dual > problem.dual:
             problem.dual = dual
             n_iter = 0
         
-        # 4.5 - Half pi after MAX_ITER_PI iterations without improvement.
+        # 3.5 - Half pi after MAX_ITER_PI iterations without improvement.
         elif n_iter == MAX_ITER_PI:
             pi /= 2
             n_iter = 0
         
-        # 5 - Generate primal with lagrangian heuristic, and update.
+        # 4 - Generate primal with lagrangian heuristic, and update.
         problem.primal = min(problem.primal, problem.lg_heu(sol))
         
-        # 6 - Calculate subgradients.
-        subgrad, sub_sum = problem.update_mult(mult)
+        # 5 - Calculate subgradients.
+        subgrad, sub_sum = problem.subgradients(mult, sol)
     
-        # 6.5 - Early stopping.
+        # 5.5 - Early stopping.
         # Finish execution if Gi=0 for every i.
         # If solution is viable, it's the optimum.
         if sub_sum == 0:
             # TODO: check viability
             break
     
-        # 7 - Update lagrange multipliers
+        # 6 - Update lagrange multipliers
         step = pi*((1+EPS)*problem.primal - problem.dual)/sub_sum
         mult = problem.update_mult(mult, subgrad, sub_sum)
     
