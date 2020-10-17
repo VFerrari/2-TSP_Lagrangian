@@ -19,34 +19,34 @@ from math import inf
 
 # Should NOT be instantiated!
 class Problem(object):
-    def __init__(instance):
+    def __init__(self, instance):
         self.ins = instance
         self.primal = inf
         self.dual = 0
     
-    def gap():
+    def gap(self):
         return abs(self.primal - self.dual)
     
     # Initializes lagrange multipliers with value `value`.
-    def init_mult(value):
+    def init_mult(self, value):
         raise NotImplementedError
     
     # Solves the Lagrangian Primal Problem, returns solution and its cost.
-    def solve_llbp(mult):
+    def solve_llbp(self, mult):
         raise NotImplementedError
     
     # Check viability of solution for the original problem.
-    def check_viability(sol):
+    def check_viability(self, sol):
 		raise NotImplementedError
     
     # Lagrangian Heuristic to viabilize dual solution.
-    def lg_heu(sol):
+    def lg_heu(self, sol):
         raise NotImplementedError
     
     # Subgradient calculation method.
-    def subgradients(mult, sol):
+    def subgradients(self, mult, sol):
         raise NotImplementedError
     
     # Multiplier update method.
-    def update_mult(mult, subgrad, step):
+    def update_mult(self, mult, subgrad, step):
         raise NotImplementedError
