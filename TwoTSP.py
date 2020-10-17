@@ -18,32 +18,33 @@ Last Modified: 16/10/2020
 '''
 
 from Problem import Problem
+import dual_solver
 
 class TwoTSP(Problem):
-    def __init__(self, instance, llbp, heu):
-        super(instance)
-        
+    def __init__(self, instance, n_vertices, heu):
+        super().__init__(instance)
+        self.n_vertices = n_vertices
+
         # TODO: maybe not the best way to do that. Just import the functions?
-        self.llbp = llbp
         self.heu = heu
     
     def init_mult(self, value):
         return {k:value for k in self.ins.keys()}
     
     def solve_llbp(self, mult, max_time):
-		# Calculating lagrangian costs
-		lc = {k : self.ins[k]+mult[k] for k in self.ins.keys()}
-        
-        # Solve LLBP and subtract linear term from cost.
-        cost, solution = self.llbp(lc, max_time)
+        # Calculating lagrangian costs
+        lc = {k : self.ins[k]+mult[k] for k in self.ins.keys()}
+
+        # Solve LLBP and subtract linear term from cost
+        cost, solution = dual_solver.optimize(n_vertices=self.n_vertices, lagrangean_costs=lc, time_limit=max_time)
         cost -= sum(mult.values())
         
         return cost, solution
     
     def check_viability(self, sol):
-		# TODO: implement
-		raise NotImplementedError
-    
+        # TODO: implement
+        raise NotImplementedError
+
     def lg_heu(self, sol):
         return self.heu(self.ins, sol)
     
@@ -61,6 +62,6 @@ class TwoTSP(Problem):
         return subgrad, sub_sum
         
     def update_mult(self, mult, subgrad, step):
-		new_mult = lambda k : max(0, mult[k] + step*subgrad[k])
+        new_mult = lambda k : max(0, mult[k] + step*subgrad[k])
         return {k : new_mult(k) for k in self.ins.keys()}
 

@@ -17,7 +17,7 @@ University of Campinas - UNICAMP - 2020
 
 Last Modified: 16/10/2020
 '''
-
+import random
 from random import uniform
 from math import sqrt
 from TwoTSP import TwoTSP
@@ -33,5 +33,5 @@ def generate_instance(n_points, seed_value):
             sqrt(sum((points[i][k]-points[j][k])**2 for k in range(2)))
             for i in range(n_points) for j in range(i)}
     
-    return TwoTSP(dist, None, None)
+    return TwoTSP(dist, n_vertices=n_points, heu=None)
 

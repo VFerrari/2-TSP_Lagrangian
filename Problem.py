@@ -32,12 +32,12 @@ class Problem(object):
         raise NotImplementedError
     
     # Solves the Lagrangian Primal Problem, returns solution and its cost.
-    def solve_llbp(self, mult):
+    def solve_llbp(self, mult, max_time):
         raise NotImplementedError
     
     # Check viability of solution for the original problem.
     def check_viability(self, sol):
-		raise NotImplementedError
+        raise NotImplementedError
     
     # Lagrangian Heuristic to viabilize dual solution.
     def lg_heu(self, sol):

@@ -65,6 +65,10 @@ def subtour(edges, n_vertices):
             cycle = thiscycle
     return cycle
 
+def get_cicle(model, X):
+    values = model.getAttr('x', X)
+    selected = gp.tuplelist((i, j) for i, j in values.keys() if values[i, j] > 0.5)
+    return  subtour(selected)
 
 def optimize(n_vertices, lagrangean_costs, time_limit=1800.0):
     '''
@@ -73,7 +77,7 @@ def optimize(n_vertices, lagrangean_costs, time_limit=1800.0):
     :param lagrangean_costs: lagrangean costs, lagrangean_costs[(i,j)] = c_(i,j) + lambda_(i,j), where c_(i,j) is the
                             original cost and lambda_(i,j) is the lagrangean multiplier.
     :param time_limit: time limit
-    :return: objective value
+    :return: cost and solution
     '''
     model = gp.Model()
 
@@ -97,4 +101,6 @@ def optimize(n_vertices, lagrangean_costs, time_limit=1800.0):
     model.setParam(GRB.Param.TimeLimit, time_limit)
     model.optimize(subtourelim)
 
-    return model.objVal
+    solution = [get_cicle(model, x1), get_cicle(model, x2)]
+
+    return model.objVal, solution
