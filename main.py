@@ -21,6 +21,7 @@ from sys import argv, exit
 from time import time
 from generator import generate_instance
 from lagrangian import lagrangian_relaxation
+import graphic
 
 def main():
             
@@ -40,8 +41,8 @@ def main():
     # Create instance and solve
     start = time()
     ins = generate_instance(n, seed)
-    res, opt = lagrangian_relaxation(ins, start, limit)
-    
+    res, opt, lower_bound_list, upper_bound_list = lagrangian_relaxation(ins, start, limit)
+    graphic.plot_bounds_graph(lower_bound_list, upper_bound_list)
     # Output 
     print('')
     if opt:

@@ -42,13 +42,14 @@ def lagrangian_relaxation(problem, start_time, max_time):
     pi, n_iter = INIT_PI, 0
     curr_time = lambda x: time() - x
     mult = problem.init_mult(INIT_MULT_VAL)
-    
+    lower_bound_list = []
+    upper_bound_list = []
     # End conditions: pi too small, too much time elapsed and optimum found.
     while pi > MIN_PI and curr_time(start_time) < max_time and problem.gap() >= 1:
         
         # 2 - Solve LLBP with lagrangian costs.
         dual, dual_sol = problem.solve_llbp(mult, max_time-curr_time(start_time))
-
+        lower_bound_list.append(dual)
         # 3 - Update best dual if possible
         n_iter += 1
         if dual > problem.dual:
@@ -62,6 +63,8 @@ def lagrangian_relaxation(problem, start_time, max_time):
         
         # 4 - Generate primal with lagrangian heuristic, and update.
         primal, primal_sol = problem.lg_heu(dual_sol, max_time-curr_time(start_time))
+        upper_bound_list.append(primal)
+        
         if primal < problem.primal: 
             problem.primal = primal
             problem.solution = primal_sol
@@ -84,4 +87,4 @@ def lagrangian_relaxation(problem, start_time, max_time):
     
     optimal = False if problem.gap() >= 1 else True
     
-    return problem, optimal
+    return problem, optimal, lower_bound_list, upper_bound_list
