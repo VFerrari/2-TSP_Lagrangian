@@ -26,6 +26,7 @@ class TwoTSP(Problem):
     def __init__(self, instance, n_vertices):
         super().__init__(instance)
         self.n_vertices = n_vertices
+        self.solution = None
     
     def init_mult(self, value):
         return {k:value for k in self.ins.keys()}
@@ -52,7 +53,7 @@ class TwoTSP(Problem):
         # Removing cycle from graph.
         for v in range(-1, len(sol)-1):
             edge = sol[v], sol[v+1]
-            edge = sol[v+1], sol[v] if edge in new_ins else edge
+            edge = sol[v+1], sol[v] if edge not in new_ins else edge
             new_ins[edge] = inf
         
         # Solving TSP without first cycle.
@@ -70,7 +71,7 @@ class TwoTSP(Problem):
         # Calculate X variables
         for v in range(-1, len(sol)-1):
             edge = sol[v], sol[v+1]
-            edge = sol[v+1], sol[v] if edge in x else edge
+            edge = sol[v+1], sol[v] if edge not in x else edge
             x[edge] = 1
         
         # Calculate subgradients

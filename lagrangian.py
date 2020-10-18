@@ -36,7 +36,7 @@ EPS = 0.0005
  by J.E. Beasley, in the "Modern Heuristic Techniques for Combinatorial
  Problems" book, pages 243-303, 1993.
 '''
-def subgradient_method(problem, start_time, max_time):
+def lagrangian_relaxation(problem, start_time, max_time):
     
     # 1 - Initialize lagrange multipliers and other important values/functions.
     pi, n_iter = INIT_PI, 0
