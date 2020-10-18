@@ -82,4 +82,6 @@ def lagrangian_relaxation(problem, start_time, max_time):
         step = pi*((1+EPS)*problem.primal - problem.dual)/sub_sum
         mult = problem.update_mult(mult, subgrad, step)
     
-    return problem
+    optimal = False if problem.gap() >= 1 else True
+    
+    return problem, optimal
