@@ -52,7 +52,7 @@ class TwoTSP(Problem):
         # Removing cycle from graph.
         for v in range(-1, len(sol)-1):
             edge = sol[v], sol[v+1]
-            edge = sol[v+1], sol[v] if not new_ins[edge] else edge
+            edge = sol[v+1], sol[v] if edge in new_ins else edge
             new_ins[edge] = inf
         
         # Solving TSP without first cycle.
@@ -70,7 +70,7 @@ class TwoTSP(Problem):
         # Calculate X variables
         for v in range(-1, len(sol)-1):
             edge = sol[v], sol[v+1]
-            edge = sol[v+1], sol[v] if not x[edge] else edge
+            edge = sol[v+1], sol[v] if edge in x else edge
             x[edge] = 1
         
         # Calculate subgradients
