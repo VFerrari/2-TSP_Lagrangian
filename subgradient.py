@@ -14,7 +14,7 @@ Authors:
 
 University of Campinas - UNICAMP - 2020
 
-Last Modified: 16/10/2020
+Last Modified: 18/10/2020
 '''
 
 from time import time
@@ -47,7 +47,7 @@ def subgradient_method(problem, max_time):
     while pi > MIN_PI and curr_time(start_time) < max_time and problem.gap() >= 1:
         
         # 2 - Solve LLBP with lagrangian costs.
-        dual, sol = problem.solve_llbp(mult, max_time)
+        dual, dual_sol = problem.solve_llbp(mult, max_time-curr_time(start_time))
 
         # 3 - Update best dual if possible
         n_iter += 1
@@ -61,16 +61,21 @@ def subgradient_method(problem, max_time):
             n_iter = 0
         
         # 4 - Generate primal with lagrangian heuristic, and update.
-        problem.primal = min(problem.primal, problem.lg_heu(sol))
+		primal, primal_sol = problem.lg_heu(dual_sol, max_time-curr_time(start_time))
+		if primal < problem.primal:	
+			problem.primal = primal
+			problem.solution = primal_sol
         
         # 5 - Calculate subgradients.
-        subgrad, sub_sum = problem.subgradients(mult, sol)
+        subgrad, sub_sum = problem.subgradients(mult, dual_sol)
     
         # 5.5 - Early stopping.
         # Finish execution if Gi=0 for every i.
         # If solution is viable, it's the optimum.
         if sub_sum == 0:
-            # TODO: check viability
+            if problem.check_viability(dual_sol): 
+				problem.primal = dual
+				problem.solution = dual_sol
             break
     
         # 6 - Update lagrange multipliers

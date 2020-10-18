@@ -12,7 +12,7 @@ Authors:
 
 University of Campinas - UNICAMP - 2020
 
-Last Modified: 16/10/2020
+Last Modified: 18/10/2020
 '''
 
 from math import inf
@@ -40,7 +40,7 @@ class Problem(object):
         raise NotImplementedError
     
     # Lagrangian Heuristic to viabilize dual solution.
-    def lg_heu(self, sol):
+    def lg_heu(self, sol, max_time):
         raise NotImplementedError
     
     # Subgradient calculation method.
