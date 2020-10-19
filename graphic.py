@@ -3,14 +3,14 @@ import networkx as nx
 import matplotlib.pyplot as plt
 
 def plot_bounds_graph(lower_bound_list, upper_bound_list):
+    figure_path='bounds_graph.png'
     n=len(lower_bound_list)
     plt.plot(list(range(n)), lower_bound_list, label='Lower Bound', color='blue')
     plt.plot(list(range(n)), upper_bound_list, label='Upper Bound', color='red')
     plt.xlabel('Iterations')
     plt.ylabel('Values')
     plt.legend()
-    plt.show()
-    #plt.savefig(figure_path, bbox_inches='tight')
+    plt.savefig(figure_path, bbox_inches='tight')
 
 
 # Ignore esta função por enquanto
