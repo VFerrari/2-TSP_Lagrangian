@@ -122,3 +122,35 @@ def optimize_2tsp(n_vertices, costs, time_limit=1800.0):
     solution2 = get_cycle(model, x2, n_vertices)
 
     return model.objVal, [solution1, solution2]
+
+
+def optimize_2tsp_integer_linear_programming(n_vertices, dist):
+    model = gp.Model()
+
+    # Create variables
+    x1 = model.addVars(dist.keys(), obj=dist, vtype=GRB.BINARY, name='x1')
+    for i, j in x1.keys():
+        x1[j, i] = x1[i, j]  # edge in opposite direction
+
+    x2 = model.addVars(dist.keys(), obj=dist, vtype=GRB.BINARY, name='x2')
+    for i, j in x2.keys():
+        x2[j, i] = x2[i, j]  # edge in opposite direction
+
+    # Add degree-2 constraint
+    model.addConstrs(x1.sum(i, '*') == 2 for i in range(n_vertices))
+    model.addConstrs(x2.sum(i, '*') == 2 for i in range(n_vertices))
+
+    for i, j in x2.keys():
+        model.addConstr((x1[i, j] + x2[i, j]) <= 1, "c{}_{}".format(i, j))
+
+    # Optimize model
+    model._vars = ([x1, x2], n_vertices)
+    model.Params.lazyConstraints = 1
+    # set time limit to 30 minutes (1800 s)
+    model.setParam(GRB.Param.TimeLimit, 1800.0)
+    model.optimize(subtourelim)
+
+    # solution1 = get_cycle(model, x1, n_vertices)
+    # solution2 = get_cycle(model, x2, n_vertices)
+
+    return model.objVal, model.ObjBound, model.Runtime
