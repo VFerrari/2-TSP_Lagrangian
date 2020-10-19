@@ -86,5 +86,4 @@ def lagrangian_relaxation(problem, start_time, max_time):
         mult = problem.update_mult(mult, subgrad, step)
     
     optimal = False if problem.gap() >= 1 else True
-    
     return problem, optimal, lower_bound_list, upper_bound_list
