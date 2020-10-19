@@ -63,7 +63,29 @@ def get_cycle(model, X, n_vertices):
     selected = gp.tuplelist((i, j) for i, j in values.keys() if values[i, j] > 0.5)
     return subtour(selected, n_vertices)
 
-def optimize(n_vertices, costs, time_limit=1800.0):
+def optimize_tsp(n_vertices, costs, time_limit=1800.0):
+    model = gp.Model()
+
+    # Create variables
+    x = model.addVars(costs.keys(), obj=costs, vtype=GRB.BINARY, name='e')
+    for i, j in x.keys():
+        x[j, i] = x[i, j]  # edge in opposite direction
+
+    # Add degree-2 constraint
+    model.addConstrs(x.sum(i, '*') == 2 for i in range(n_vertices))
+
+    # Optimize model
+    model._vars = ([x], n_vertices)
+    model.Params.lazyConstraints = 1
+    # set time limit to 30 minutes (1800 s)
+    model.setParam(GRB.Param.TimeLimit, time_limit)
+    model.optimize(subtourelim)
+
+    solution = get_cycle(model, x, n_vertices)
+
+    return model.objVal, solution
+
+def optimize_2tsp(n_vertices, costs, time_limit=1800.0):
     '''
     :param n_vertices: number of vertices
     :param costs: costs of the edges from a graph., given in dict format.
@@ -77,19 +99,26 @@ def optimize(n_vertices, costs, time_limit=1800.0):
 
     # Create variables
     x1 = model.addVars(costs.keys(), obj=costs, vtype=GRB.BINARY, name='x1')
+    x2 = model.addVars(costs.keys(), obj=costs, vtype=GRB.BINARY, name='x2')
+
     for i, j in x1.keys():
         x1[j, i] = x1[i, j]  # edge in opposite direction
 
+    for i, j in x2.keys():
+        x2[j, i] = x2[i, j]  # edge in opposite direction
+
     # Add degree-2 constraint
     model.addConstrs(x1.sum(i, '*') == 2 for i in range(n_vertices))
+    model.addConstrs(x2.sum(i, '*') == 2 for i in range(n_vertices))
 
     # Optimize model
-    model._vars = ([x1], n_vertices)
+    model._vars = ([x1, x2], n_vertices)
     model.Params.lazyConstraints = 1
 
     model.setParam('TimeLimit', time_limit)
     model.optimize(subtourelim)
 
-    solution = get_cycle(model, x1, n_vertices)
+    solution1 = get_cycle(model, x1, n_vertices)
+    solution2 = get_cycle(model, x2, n_vertices)
 
-    return model.objVal, solution
+    return model.objVal, [solution1, solution2]

@@ -27,17 +27,17 @@ def main():
             
     # Parse arguments
     if len(argv) < 4:
-    	print('Usage: main.py <n_points> <seed_value> <time_limit>')
-    	exit(1)
+        print('Usage: main.py <n_points> <seed_value> <time_limit>')
+        exit(1)
     n = int(argv[1])
     print(f"n = {n}")
-    
+
     seed = int(argv[2])
     print(f"seed = {seed}")
-    
+
     limit = int(argv[3])
     print(f"limit = {limit}s")
-    
+
     # Create instance and solve
     start = time()
     ins = generate_instance(n, seed)
