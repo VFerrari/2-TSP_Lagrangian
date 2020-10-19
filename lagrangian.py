@@ -14,10 +14,11 @@ Authors:
 
 University of Campinas - UNICAMP - 2020
 
-Last Modified: 18/10/2020
+Last Modified: 19/10/2020
 '''
 
 from time import time
+from math import inf
 
 # Constants
 INIT_PI = 2
@@ -49,7 +50,9 @@ def lagrangian_relaxation(problem, start_time, max_time):
         
         # 2 - Solve LLBP with lagrangian costs.
         dual, dual_sol = problem.solve_llbp(mult, max_time-curr_time(start_time))
+        if dual == inf: break 
         lower_bound_list.append(dual)
+        
         # 3 - Update best dual if possible
         n_iter += 1
         if dual > problem.dual:
@@ -63,6 +66,7 @@ def lagrangian_relaxation(problem, start_time, max_time):
         
         # 4 - Generate primal with lagrangian heuristic, and update.
         primal, primal_sol = problem.lg_heu(dual_sol, max_time-curr_time(start_time))
+        if primal == inf: break 
         upper_bound_list.append(primal)
         
         if primal < problem.primal: 

@@ -16,7 +16,7 @@ Authors:
 
 University of Campinas - UNICAMP - 2020
 
-Last Modified: 18/10/2020
+Last Modified: 19/10/2020
 '''
 
 import gurobipy as gp
@@ -81,7 +81,12 @@ def optimize_tsp(n_vertices, costs, time_limit=1800.0):
     model.setParam('TimeLimit', max(time_limit,0))
     model.optimize(subtourelim)
 
-    solution = get_cycle(model, x, n_vertices)
+    if model.status == GRB.Status.OPTIMAL:
+        solution = get_cycle(model, x, n_vertices)
+    elif model.status == GRB.Status.TIME_LIMIT:
+        solution = None
+    else:
+        print("Panic! Shouldn't be here, something went wrong.")
 
     return model.objVal, solution
 
@@ -118,9 +123,15 @@ def optimize_2tsp(n_vertices, costs, time_limit=1800.0):
     model.setParam('TimeLimit', max(time_limit,0))
     model.optimize(subtourelim)
 
-    solution1 = get_cycle(model, x1, n_vertices)
-    solution2 = get_cycle(model, x2, n_vertices)
-
+    if model.status == GRB.Status.OPTIMAL:
+        solution1 = get_cycle(model, x1, n_vertices)
+        solution2 = get_cycle(model, x2, n_vertices)
+    elif model.status == GRB.Status.TIME_LIMIT:
+        solution1 = None
+        solution2 = None
+    else:
+        print("Panic! Shouldn't be here, something went wrong.")
+        
     return model.objVal, [solution1, solution2]
 
 
@@ -147,7 +158,7 @@ def optimize_2tsp_integer_linear_programming(n_vertices, dist):
     model._vars = ([x1, x2], n_vertices)
     model.Params.lazyConstraints = 1
     # set time limit to 30 minutes (1800 s)
-    model.setParam(GRB.Param.TimeLimit, 1800.0)
+    model.setParam('TimeLimit', 1800.0)
     model.optimize(subtourelim)
 
     # solution1 = get_cycle(model, x1, n_vertices)
