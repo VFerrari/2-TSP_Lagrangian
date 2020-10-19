@@ -40,13 +40,29 @@ class TwoTSP(Problem):
         cost, solution = optimize_2tsp(n_vertices=self.n_vertices,
                                        costs=lc,
                                        time_limit=max_time)
-        #cost *= 2
         cost -= sum(mult.values())
         return cost, solution
     
     def check_viability(self, sol):
-        # The dual will never be viable for 2-TSP.
-        return False
+        cycle_list = []
+        
+        # Calculate edges for every cycle.
+        for cycle in sol:
+            e_list = []
+            
+            for v in range(-1, len(cycle)-1):
+                edge = cycle[v], cycle[v+1]
+                if edge not in self.ins.keys():
+                    edge = cycle[v + 1], cycle[v]
+
+                e_list.append(edge)
+            cycle_list.append(x)
+        
+        # Check if edge sets are disjoint.
+        # If no edges repeat, the union size is the sum of all sizes.
+        union = set().union(*cycle_list)
+        n = sum(len(u) for u in cycle_list)
+        return n == len(union)
 
     def compute_cost(self, cycle):
         total_cost = 0
@@ -62,9 +78,11 @@ class TwoTSP(Problem):
     def lg_heu(self, sol, max_time):
         new_ins = self.ins.copy()
 
+        # Compute individual costs.
         cost1 = self.compute_cost(sol[0])
         cost2 = self.compute_cost(sol[1])
-
+        
+        # Choose least cost cycle to remove.
         if cost1 < cost2:
             cycle = sol[0]
             cost = cost1
@@ -91,12 +109,13 @@ class TwoTSP(Problem):
         subgrad = {}
         sub_sum = 0
         x_list = []
+        
+        # Calculate X variables for every cycle.
         for cycle in sol:
             x = {k: 0 for k in self.ins.keys()}
-            # Calculate X variables
+        
             for v in range(-1, len(cycle)-1):
                 edge = cycle[v], cycle[v+1]
-
                 if edge not in x.keys():
                     edge = cycle[v + 1], cycle[v]
 
@@ -106,9 +125,7 @@ class TwoTSP(Problem):
         # Calculate subgradients
         # g_k = x_1[k] + x_2[k] - 1
         for k in self.ins.keys():
-            sub = 0
-            for x in x_list:
-                sub += x[k]
+            sub = sum(x[k] for x in x_list)
             sub -= 1
             subgrad[k] = 0 if sub < 0 and mult[k] == 0 else sub
             sub_sum += subgrad[k]*subgrad[k]

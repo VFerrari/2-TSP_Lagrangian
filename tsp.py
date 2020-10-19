@@ -22,7 +22,6 @@ Last Modified: 18/10/2020
 import gurobipy as gp
 from gurobipy import GRB
 from itertools import combinations
-from time import time
 
 # Callback - use lazy constraints to eliminate sub-tours
 def subtourelim(model, where):
@@ -77,8 +76,9 @@ def optimize_tsp(n_vertices, costs, time_limit=1800.0):
     # Optimize model
     model._vars = ([x], n_vertices)
     model.Params.lazyConstraints = 1
-    # set time limit to 30 minutes (1800 s)
-    model.setParam(GRB.Param.TimeLimit, time_limit)
+    
+    # Set time limit
+    model.setParam('TimeLimit', max(time_limit,0))
     model.optimize(subtourelim)
 
     solution = get_cycle(model, x, n_vertices)
@@ -115,7 +115,7 @@ def optimize_2tsp(n_vertices, costs, time_limit=1800.0):
     model._vars = ([x1, x2], n_vertices)
     model.Params.lazyConstraints = 1
 
-    model.setParam('TimeLimit', time_limit)
+    model.setParam('TimeLimit', max(time_limit,0))
     model.optimize(subtourelim)
 
     solution1 = get_cycle(model, x1, n_vertices)

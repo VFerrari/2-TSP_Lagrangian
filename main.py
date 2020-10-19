@@ -43,6 +43,7 @@ def main():
     ins = generate_instance(n, seed)
     res, opt, lower_bound_list, upper_bound_list = lagrangian_relaxation(ins, start, limit)
     graphic.plot_bounds_graph(lower_bound_list, upper_bound_list)
+    
     # Output 
     print('')
     if opt:
