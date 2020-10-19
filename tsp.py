@@ -22,6 +22,7 @@ Last Modified: 19/10/2020
 import gurobipy as gp
 from gurobipy import GRB
 from itertools import combinations
+from math import inf
 
 # Callback - use lazy constraints to eliminate sub-tours
 def subtourelim(model, where):
@@ -79,16 +80,19 @@ def optimize_tsp(n_vertices, costs, time_limit=1800.0):
     
     # Set time limit
     model.setParam('TimeLimit', max(time_limit,0))
+    #model.setParam('OutputFlag', 0)
     model.optimize(subtourelim)
 
     if model.status == GRB.Status.OPTIMAL:
         solution = get_cycle(model, x, n_vertices)
+        cost = model.objVal
     elif model.status == GRB.Status.TIME_LIMIT:
         solution = None
+        cost = inf
     else:
         print("Panic! Shouldn't be here, something went wrong.")
 
-    return model.objVal, solution
+    return cost, solution
 
 def optimize_2tsp(n_vertices, costs, time_limit=1800.0):
     '''
@@ -121,18 +125,21 @@ def optimize_2tsp(n_vertices, costs, time_limit=1800.0):
     model.Params.lazyConstraints = 1
 
     model.setParam('TimeLimit', max(time_limit,0))
+    #model.setParam('OutputFlag', 0)
     model.optimize(subtourelim)
 
     if model.status == GRB.Status.OPTIMAL:
         solution1 = get_cycle(model, x1, n_vertices)
         solution2 = get_cycle(model, x2, n_vertices)
+        cost = model.objVal
     elif model.status == GRB.Status.TIME_LIMIT:
         solution1 = None
         solution2 = None
+        cost = inf
     else:
         print("Panic! Shouldn't be here, something went wrong.")
         
-    return model.objVal, [solution1, solution2]
+    return cost, [solution1, solution2]
 
 
 def optimize_2tsp_integer_linear_programming(n_vertices, dist):
@@ -157,6 +164,7 @@ def optimize_2tsp_integer_linear_programming(n_vertices, dist):
     # Optimize model
     model._vars = ([x1, x2], n_vertices)
     model.Params.lazyConstraints = 1
+    
     # set time limit to 30 minutes (1800 s)
     model.setParam('TimeLimit', 1800.0)
     model.optimize(subtourelim)
