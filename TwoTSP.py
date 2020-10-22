@@ -14,7 +14,7 @@ Authors:
 
 University of Campinas - UNICAMP - 2020
 
-Last Modified: 18/10/2020
+Last Modified: 22/10/2020
 '''
 
 from math import inf
@@ -29,6 +29,13 @@ class TwoTSP(Problem):
         self.n_vertices = n_vertices
         self.solution = None
     
+    def optimal(self):
+        # Since the objective function value isn't an integer,
+        # the optimal solution is found when the dual and primal solutions
+        # have the same value. There's a tolerance added for possible 
+        # float numerical errors.
+        return self.gap() <= 0.00005
+
     def init_mult(self, value):
         return {k:value for k in self.ins.keys()}
     

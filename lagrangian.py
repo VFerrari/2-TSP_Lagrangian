@@ -14,7 +14,7 @@ Authors:
 
 University of Campinas - UNICAMP - 2020
 
-Last Modified: 19/10/2020
+Last Modified: 22/10/2020
 '''
 
 from time import time
@@ -46,7 +46,7 @@ def lagrangian_relaxation(problem, start_time, max_time):
     lower_bound_list, upper_bound_list = [], []
     
     # End conditions: pi too small, too much time elapsed and optimum found.
-    while pi > MIN_PI and curr_time(start_time) < max_time and problem.gap() >= 1:
+    while pi > MIN_PI and curr_time(start_time) < max_time and not problem.optimal():
         
         # 2 - Solve LLBP with lagrangian costs.
         dual, dual_sol = problem.solve_llbp(mult, max_time-curr_time(start_time))
@@ -91,5 +91,4 @@ def lagrangian_relaxation(problem, start_time, max_time):
         step = pi*((1+EPS)*problem.primal - problem.dual)/sub_sum
         mult = problem.update_mult(mult, subgrad, step)
     
-    optimal = False if problem.gap() >= 1 else True
-    return problem, optimal, lower_bound_list, upper_bound_list
+    return problem, problem.optimal(), lower_bound_list, upper_bound_list

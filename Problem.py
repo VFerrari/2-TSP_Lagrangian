@@ -12,7 +12,7 @@ Authors:
 
 University of Campinas - UNICAMP - 2020
 
-Last Modified: 18/10/2020
+Last Modified: 22/10/2020
 '''
 
 from math import inf
@@ -23,9 +23,13 @@ class Problem(object):
         self.ins = instance
         self.primal = inf
         self.dual = 0
-    
+
     def gap(self):
         return abs(self.primal - self.dual)
+    
+    # Checks if optimal solution was found.
+    def optimal(self):
+        raise NotImplementedError
     
     # Initializes lagrange multipliers with value `value`.
     def init_mult(self, value):
