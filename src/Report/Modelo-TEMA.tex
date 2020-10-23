@@ -1,0 +1,775 @@
+% !TEX encoding = IsoLatin
+%% Antes de processar este arquivo LaTeX (LaTeX2e) deve
+%% verificar que o arquivo TEMA.cls esta na mesma
+%% pasta. O arquivo TEMA.cls pode ser obtido do
+%% endereco http://tema.sbmac.org.br.
+
+\documentclass{TEMA}
+
+\usepackage[brazil]{babel}      % para texto em Português
+%\usepackage[english]{babel}    % para texto em Inglês
+ 
+\usepackage[latin1]{inputenc}   % para acentuação em Português IsoLatin1
+%\usepackage[utf8]{inputenc}     % para acentuação em Português UTF-8
+
+% Atenção: O presente arquivo usa a codificação IsoLatin1. Para
+% utilizar a codificação UTF-8, converter o arquivo usando seu
+% programa favorito, então troque o argumento do inputenc 
+% adequadamente.
+
+\usepackage[dvips]{graphics}
+\usepackage{subfigure}
+\usepackage{graphicx}
+\usepackage{epsfig}
+\usepackage{hyperref}
+\usepackage{framed}
+\usepackage{psfrag}
+\usepackage{tikz} 
+
+\newcommand{\B}{{\tt\symbol{92}}}
+\newcommand{\til}{{\tt\symbol{126}}}
+\newcommand{\chap}{{\tt\symbol{94}}}
+\newcommand{\agud}{{\tt\symbol{13}}}
+\newcommand{\crav}{{\tt\symbol{18}}}
+
+\begin{document}
+
+%********************************************************
+\title{
+     Modelo com Instruções para Preparação \\ 
+     de Trabalhos para TEMA%
+     \thanks{Agradecimentos por auxílio. Baseado no documento
+     proposto por A. Sri Ranga e E. Wendland.}
+}
+
+\author{
+     F. S. SOUSA%
+     \thanks{fsimeoni@icmc.usp.br; Editor executivo, desde 2014.},
+     Departamento de Matemática Aplicada e Estatística,
+     ICMC, Universidade de São Paulo, 
+     Av. Trabalhador São-carlense, 400, 
+     13566-590, São Carlos, SP, Brasil.
+     \\ \\
+     A. R. L. OLIVEIRA%
+     \thanks{aurelio@ime.unicamp.br; Editor chefe, desde 2015},
+     Departamento de Matemática Aplicada,
+     IMECC, Universidade Estadual de Campinas,
+     R. Sérgio Buarque de Holanda, 651, 
+     13083-859, Campinas, SP, Brasil. 
+}
+
+\criartitulo
+
+\runningheads{F.S. Sousa e A.R.L. Oliveira}%
+{Instruções para Preparação de Trabalhos}
+
+\begin{abstract}
+
+{\bf Resumo}. Este documento, preparado usando-se a classe
+especial \texttt{TEMA.cls}, fornece algumas informações 
+importantes para os autores que pretendem submeter 
+trabalhos (artigos) completos para a série TEMA.
+
+{\bf Palavras-chave}. Palavra-chave 1, palavra-chave 2,
+palavra-chave 3.
+
+\end{abstract}
+
+
+%********************************************************
+\section{Introdução}
+
+    A série TEMA - Tendências em Matemática
+Aplicada e Computacional, com título em inglês ``Trends in Applied
+and Computational Mathematics'',  tem como objetivo principal
+publicar traba\-lhos completos originais, de no máximo 20 páginas,
+de todas as áreas de Matemática Aplicada e Computacional.
+Excepcionalmente, a critério do Comitê Editorial, poderão ser
+publicados trabalhos com mais de 20 páginas.  Um volume, composto
+de até três números, é publicado anualmente. A finalidade 
+da série é servir como veículo para publicação de artigos originais 
+sobre temas de interesse dos associados da SBMAC, exclusivamente
+através de submissão na modalidade fluxo contínuo. Autores de
+trabalhos submetidos e publicados nos anais do CNMAC são encorajados
+a estenderem seus trabalhos e submeterem uma versão completa 
+e atualizada à TEMA, que passará pela mesma análise dos 
+artigos submetidos via fluxo contínuo. 
+
+\subsection{Fluxo contínuo da série TEMA}
+
+Os autores que manifestarem interesse em submeter {\bf trabalhos completos}
+à publicação na série TEMA em qualquer época do ano, deverão
+prepará-los em \LaTeX2e. A versão {\bf .tex} e a
+versão {\bf .pdf} de cada trabalho a ser considerado para
+publicação, juntamente com os arquivos de figuras (se houver),
+deverão ser submetidas de forma eletrônica no endereço \url{http://tema.sbmac.org.br}.
+
+Maiores detalhes sobre o calendário de publicações da TEMA podem ser encontrados em \url{http://tema.sbmac.org.br}.
+
+Os trabalhos submetidos serão avaliados por consultores {\em ad
+hoc} e, os selecionados, serão publicados no próximo número da
+TEMA, de acordo com a demanda e com o calendário de publicações.
+
+Devido a grande demanda para publicação, o número máximo de
+páginas para trabalhos está fixado em {\bf 20}.\\
+
+Os autores, no lugar de \verb!\documentclass{article}!, 
+deverão usar o comando \verb!\documentclass{TEMA}!, o 
+``class file'' \texttt{TEMA.cls} deve estar no mesmo 
+diretório no momento da compilação e pode ser
+obtido no mesmo endereço eletrônico  \newline 
+\url{http://tema.sbmac.org.br}.
+
+O ``class file'' \texttt{TEMA.cls} foi criado para que todos os
+trabalhos enviados para publicação em TEMA sejam padronizados.
+Assim, todos os trabalhos terão tamanho de fonte {\bf 10pt} e área
+de impressão: {\bf 19.0cm} por {\bf 12.7cm}.
+
+Por motivo de padronização, a linha seguinte a 
+\verb!\documentclass{TEMA}! deve ser 
+\verb!\usepackage[brazil]{babel}! para os trabalhos escritos em
+português e \newline
+\verb!\usepackage[english]{babel}! para os trabalhos escritos em inglês.
+
+%********************************************************
+
+\section{Página inicial do trabalho}
+
+A primeira página do trabalho deve conter o título do
+trabalho, nomes e endereços dos autores e resumo para
+trabalhos escritos em português (abstract para os
+escritos em inglês). Nos trabalhos escritos em
+português (inglês) deve ser incluído, ao final do texto, antes das
+referências, um {\bf abstract} em inglês ({\bf resumo} em português).
+Como exemplo, ilustramos como construir a primeira página
+deste documento.
+
+Após o comando \verb!\begin{document}! inserir as seguintes
+instruções:
+\begin{framed}
+\begin{verbatim}
+\title{
+     Modelo com Instruções para Preparação \\ 
+     de Trabalhos para TEMA%
+     \thanks{Agradecimentos por auxílio. Baseado no documento
+     proposto por A. Sri Ranga e E. Wendland.}
+}
+
+\author{
+     F. S. SOUSA%
+     \thanks{fsimeoni@icmc.usp.br; Editor executivo, desde 2014.},
+     Departamento de Matemática Aplicada e Estatística,
+     ICMC, Universidade de São Paulo, 
+     Av. Trabalhador São-carlense, 400, 
+     13566-590, São Carlos, SP, Brasil.
+     \\ \\
+     A. R. L. OLIVEIRA%
+     \thanks{aurelio@ime.unicamp.br; Editor chefe, desde 2015},
+     Departamento de Matemática Aplicada,
+     IMECC, Universidade Estadual de Campinas,
+     R. Sérgio Buarque de Holanda, 651, 
+     13083-859, Campinas, SP, Brasil. 
+}
+
+\criartitulo
+
+\runningheads{F.S. Sousa e A.R.L. Oliveira}%
+{Instruções para Preparação de Trabalhos}
+
+\begin{abstract}
+
+{\bf Resumo}. Este documento, preparado usando-se a classe
+especial \texttt{TEMA.cls}, fornece algumas informações 
+importantes para os autores que pretendem submeter 
+trabalhos (artigos) completos para a série TEMA.
+
+{\bf Palavras-chave}. Palavra-chave 1, palavra-chave 2,
+palavra-chave 3.
+
+\end{abstract}
+\end{verbatim}
+\end{framed}
+
+
+Nos trabalhos em inglês, substituir \verb!{\bf Resumo}! por
+\verb!{\bf Abstract}! e substituir \verb!{\bf Palavras-chave}!
+por \verb!{\bf Keywords}!.
+
+Os parâmetros de \verb!\runningheads{ }{ }! são as
+informações impressas nos cabeçalhos (``headings'') das páginas
+pares e ímpares, respectivamente.  O primeiro parâmetro refere-se
+aos sobrenomes dos autores e o segundo, ao título abreviado do
+trabalho (máximo de 70\% da largura do texto). Quando há vários
+autores, isto é, quando os sobrenomes dos autores ocupam mais que
+50\% da largura do texto, o primeiro parâmetro deve ser o
+sobrenome do primeiro autor seguido de ``\textbf{et al.}''.
+
+Quando há mais de um autor, seguir o seguinte exemplo:  
+
+\newpage
+
+\begin{framed}
+\begin{verbatim}
+\author{
+     F. S. SOUSA%
+     \thanks{fsimeoni@icmc.usp.br; Editor executivo, desde 2014.},
+     A. CASTELO%
+     \thanks{castelo@icmc.usp.br; Editor chefe, 2013-2015.}
+     Departamento de Matemática Aplicada e Estatística,
+     ICMC, Universidade de São Paulo, 
+     Av. Trabalhador São-carlense, 400, 
+     13566-590, São Carlos, SP, Brasil.
+     \\ \\
+     A. R. L. OLIVEIRA%
+     \thanks{aurelio@ime.unicamp.br; Editor chefe, desde 2015},
+     Departamento de Matemática Aplicada,
+     IMECC, Universidade Estadual de Campinas,
+     R. Sérgio Buarque de Holanda, 651, 
+     13083-859, Campinas, SP, Brasil. 
+}
+\end{verbatim}
+\end{framed}
+
+Neste caso, a instrução \verb!\runningheads{}{}! poderá ficar como: 
+\begin{framed}
+\begin{verbatim}
+\runningheads{Sousa et al.}{Instruções para Autores}
+\end{verbatim}
+\end{framed}
+\noindent ou
+\begin{framed}
+\begin{verbatim}
+\runningheads{Sousa, Castelo e Oliveira}{Instruções para Autores}
+\end{verbatim}
+\end{framed}
+
+
+%********************************************************
+
+\section{Sobre equações}
+
+Embora se deva usar o comando \verb!\documentclass{TEMA}!, as
+equações e referências bibliográficas são geradas da mesma forma
+quando se a classe ``article'' com o comando  \verb!\documentclass{article}!.
+
+A versão mais atual do arquivo \texttt{TEMA.cls} elimina a necessidade
+de utilizar o comando \verb!\newsec{Nome da Seção}!, como se fazia
+anteriormente. Agora os autores podem utilizar o comando
+\verb!\section{Nome da seção}! como se faz na classe ``article'',
+sem qualquer modificador extra.
+O comando \verb!\newsec{Nome da Seção}! será mantido apenas por
+questões de compatibilidade com textos gerados em versões anteriores.
+O seguinte exemplo mostra o resultado final do uso desses comandos: 
+
+\begin{framed}
+\begin{minipage}{10cm}
+\setcounter{section}{0}
+\begin{verbatim}
+\section{Primeira seção}
+\label{cin} Considere
+\begin{equation} \label{cin.um}
+   \begin{array}{rcl}
+     S_{n+1}(z) & = & z S_{n}(z) +
+     a_{n+1} S_{n}^{*}(z), \\ [1ex]
+     \left(1-|a_{n+1}|^2\right) z S_{n}(z) & = &
+     S_{n+1}(z) - a_{n+1} S_{n+1}^{*}(z),
+   \end{array} 
+\end{equation}
+para $n \geq 1$, onde $S_n^{*}(z) = z^n \overline{S}_n(1/z)$.
+As equações (\ref{cin.um}) acima são as primeiras
+equações numeradas desta seção. Abaixo, um exemplo de  equação
+centralizada mas não numerada.
+\[ x^x = e^{x \ln(x)}, \qquad x > 0. \]
+
+\section{Segunda seção}
+\label{qua}
+
+A equação (\ref{qua.um}) é a primeira equação numerada da seção
+\ref{qua}, veja
+\begin{equation} \label{qua.um}
+e = \lim_{n\rightarrow\infty} \left( 1+\frac{1}{n}\right)^n.
+\end{equation}
+
+\subsection{Primeira subseção da segunda seção} 
+Observe que as equações continuam sendo numeradas de acordo
+com a seção.
+\begin{eqnarray} \label{qua.dois}
+A_{j} &=&\sum_{k=0}^j a_k +\sum_{k=j+1}^{\infty} b_k c_k, \\
+B_{j} &=&\sum_{k=0}^j b_k +\sum_{k=j+1}^{\infty} a_k c_k,\\
+T_{j} &=&\prod_{k=0}^j a_k+\prod_{k=j+1}^{2j} b_k c_k.\nonumber
+\end{eqnarray}
+
+% compatibilidade com o antigo comando \newsec
+\newsec{Terceira Seção} 
+
+Na seção \ref{qua} vimos....
+\end{verbatim}
+\end{minipage}
+\end{framed}
+
+\begin{framed}
+\begin{minipage}{10cm}
+\setcounter{section}{0}
+
+\section{Primeira seção}
+\label{cin} Considere
+\begin{equation} \label{cin.um}
+   \begin{array}{rcl}
+     S_{n+1}(z) & = & z S_{n}(z) +
+     a_{n+1} S_{n}^{*}(z), \\ [1ex]
+     \left(1-|a_{n+1}|^2\right) z S_{n}(z) & = &
+     S_{n+1}(z) - a_{n+1} S_{n+1}^{*}(z),
+   \end{array} 
+\end{equation}
+para $n \geq 1$, onde $S_n^{*}(z) = z^n \overline{S}_n(1/z)$.
+As equações (\ref{cin.um}) acima são as primeiras
+equações numeradas desta seção. Abaixo, um exemplo de  equação
+centralizada mas não numerada.
+\[ x^x = e^{x \ln(x)}, \qquad x > 0. \]
+
+\section{Segunda seção}
+\label{qua}
+
+A equação (\ref{qua.um}) é a primeira equação numerada da seção
+\ref{qua}, veja
+\begin{equation} \label{qua.um}
+e = \lim_{n\rightarrow\infty} \left( 1+\frac{1}{n}\right)^n.
+\end{equation}
+
+\subsection{Primeira subseção da segunda seção} 
+Observe que as equações continuam sendo numeradas de acordo
+com a seção.
+\begin{eqnarray} \label{qua.dois}
+A_{j} &=&\sum_{k=0}^j a_k +\sum_{k=j+1}^{\infty} b_k c_k, \\
+B_{j} &=&\sum_{k=0}^j b_k +\sum_{k=j+1}^{\infty} a_k c_k,\\
+T_{j} &=&\prod_{k=0}^j a_k+\prod_{k=j+1}^{2j} b_k c_k.\nonumber
+\end{eqnarray}
+
+% compatibilidade com o antigo comando \newsec
+\newsec{Terceira Seção} 
+
+Na seção \ref{qua} vimos....
+
+\end{minipage}
+\end{framed}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Sobre figuras e tabelas}
+
+As figuras e ilustrações {\bf não} podem ser coloridas e, de
+preferência, devem ser preparadas em formato ``Portable 
+Document Format'' (\texttt{.pdf}), ``Encapsulated
+Postscript'' (\texttt{.eps}) ou ``postscript'' (\texttt{.ps}).
+
+Anotações e símbolos nas figuras devem ser visíveis e compatíveis
+com o tamanho padrão de fonte do manuscrito. Pode-se utilizar 
+pacotes como \texttt{psfrag} ou gerar figuras no formato
+\texttt{.pdf\_t}. Exemplos da utilização destes pacotes 
+estão listados a seguir.
+
+\subsection{Comando \texttt{psfrag}}
+
+\noindent\textbf{Atenção:} O comando \texttt{psfrag} funciona
+apenas quando se compila o arquivo \texttt{.tex} com os comandos
+\texttt{latex} para gerar o arquivo \texttt{.dvi}, antes de 
+transformá-lo posteriormente em \texttt{.ps} ou \texttt{.pdf}
+com o programa de sua preferência. Se a compilação for feita 
+diretamente com \texttt{pdftex} ou \texttt{pdflatex}, o 
+comando \texttt{psfrag} não conseguirá trocar as macros da 
+imagem original por texto \LaTeX. Exemplo de resutado do 
+código abaixo está ilustrado na figura \ref{fig:01}.
+
+\begin{framed}
+\begin{verbatim}
+\begin{figure}[h!]
+  \psfrag{_err}[c][c][1][180]{$\|p-\mathcal Ip\|_{L^2(\Omega)}$}
+  \psfrag{_h}[c][c]{$h$}
+  \psfrag{_h3meios}[l][l]{$h^\frac{3}{2}$}
+  \psfrag{_hmeio}[l][l]{$h^\frac{1}{2}$}
+  \psfrag{_mini}[l][c]{$Q_h^1$}
+  \psfrag{_exp}[l][c]{$Q_h^\Gamma$}
+  \centering
+  \includegraphics*[width=0.7\linewidth]{fig01.eps}
+  \caption{Exemplo de imagem \texttt{eps} com anotação 
+           utilizando o pacote \texttt{psfrag}. Imagem
+           retirada de \cite{Ausas:2010}.}
+  \label{fig:01}
+\end{figure}
+\end{verbatim}
+\end{framed}
+
+
+\begin{figure}[h!]
+  \psfrag{_err}[c][c][1][180]{$\|p-\mathcal Ip\|_{L^2(\Omega)}$}
+  \psfrag{_h}[c][c]{$h$}
+  \psfrag{_h3meios}[l][l]{$h^\frac{3}{2}$}
+  \psfrag{_hmeio}[l][l]{$h^\frac{1}{2}$}
+  \psfrag{_mini}[l][c]{$Q_h^1$}
+  \psfrag{_exp}[l][c]{$Q_h^\Gamma$}
+  \centering
+  \includegraphics*[width=0.7\linewidth]{fig01.eps}
+  \caption{Exemplo de imagem \texttt{eps} com anotação 
+           utilizando o pacote \texttt{psfrag}. Imagem
+           retirada de \cite{Ausas:2010}.}
+  \label{fig:01}
+\end{figure}
+
+
+
+\subsection{Arquivo \texttt{.pdf\_t}}
+
+Nos arquivos com formato \texttt{.pdf\_t}, todo o texto é automaticamente
+trocado por textos \LaTeX, inclusive fórmulas e anotações. Isso é feito
+através de um arquivo auxiliar ao \texttt{.pdf} com extensão 
+\texttt{.pdf\_t}, que deve ser importado via comando \texttt{input}.
+Os arquivos deste tipo são gerados por programas de desenho, sendo 
+o \texttt{inkscape} o mais popular (multiplataforma, grátis).
+O resultado do seguinte código está ilustrado na figura \ref{fig:02}.
+
+
+\begin{framed}
+\begin{verbatim}
+\begin{figure}[h!]
+  \centering
+  \scalebox{0.24}{\input{fig02.pdf_t}}
+  \caption{Exemplo da utilização de figura no formato 
+           \texttt{pdf\_t}. Retirada de \cite{Ausas:2010}.} 
+  \label{fig:02}
+\end{figure}
+\end{verbatim}
+\end{framed}
+
+\begin{figure}[h!]
+  \centering
+  \scalebox{0.24}{\input{fig02.pdf_t}}
+  \caption{Exemplo da utilização de figura no formato 
+           \texttt{pdf\_t}. Retirada de \cite{Ausas:2010}.} 
+  \label{fig:02}
+\end{figure}
+
+\subsection{Pacote \texttt{tikz}}
+
+O \texttt{tikz} e uma poderosa ferramenta para desenho direto
+em \LaTeX, gerando figuras vetorias de altíssima qualidade. O
+usuário deve no entanto se familiarizar com a geração do script 
+que resultará no desenho. Sua utilização é aceita no modelo
+da revista TEMA. O código a seguir combina a utilização do 
+pacote com \texttt{minipage} e \texttt{subfigure}, e o 
+resultado está ilustrado na figura \ref{fig:03}.
+
+
+\begin{framed}
+\begin{verbatim}
+\begin{figure}[h!]
+\centering
+	\begin{minipage}[b]{0.45\linewidth}
+	\centering
+		\subfigure[\emph{Wall}-Norte]{
+			\centering
+			\begin{tikzpicture}[scale=1.5]
+				\draw[-] (1,1) rectangle (3,3);
+				\draw[dashed, lightgray] (1,2) -- (3,2);
+				\draw[dashed, lightgray] (2,1) -- (2,3);
+				\draw[fill = black] (2,2) circle (0.06cm) 
+				     node[below, scale=0.8] {$p_{i,j}$};
+				\node[scale=0.8] at (2,3.2) {$\mathbf{u} = 0$};
+				\draw[fill = black] (2,1) circle (0.06cm) 
+				     node[below right, scale=0.8] {$v_{i,j-1/2}$};
+				\draw[fill = black] (3,2) circle (0.06cm) 
+				     node[right, scale=0.8] {$u_{i+1/2,j}$};
+				\draw[dashed, gray] (3,3) -- (3,4);
+				\draw[fill = gray, color=gray] (3,4) circle (0.06cm)
+				     node[right, scale=0.8, gray] {$u_{i+1/2,j+1}$};
+			\end{tikzpicture}
+		\label{norte} }
+	\end{minipage}
+	\begin{minipage}[b]{0.45\linewidth}
+	\centering
+		\subfigure[\emph{Wall}-Sul]{
+			\centering
+			\begin{tikzpicture}[scale=1.5]
+				\draw[-] (1,1) rectangle (3,3);
+				\draw[dashed, lightgray] (1,2) -- (3,2);
+				\draw[dashed, lightgray] (2,1) -- (2,3);
+				\draw[fill = black] (2,2) circle (0.06cm) 
+				     node[below, scale=0.8] {$p_{i,j}$};
+				\node[scale=0.8] at (2,0.8) {$\mathbf{u} = 0$};
+				\draw[fill = black] (2,3) circle (0.06cm) 
+				     node[above right, scale=0.8] {$v_{i,j+1/2}$};
+				\draw[fill = black] (3,2) circle (0.06cm) 
+				     node[right, scale=0.8] {$u_{i+1/2,j}$};
+				\draw[dashed, gray] (3,1) -- (3,0);
+				\draw[fill = gray, color=gray] (3,0) circle (0.06cm) 
+				     node[right, scale=0.8, gray] {$u_{i+1/2,j-1}$};
+			\end{tikzpicture}
+			\label{sul} }
+	\end{minipage}
+	\caption{Exemplo da utilização do pacote \texttt{tikz}.}
+	\label{fig:03}
+\end{figure}
+\end{verbatim}
+\end{framed}
+
+
+\begin{figure}[h!]
+\centering
+	\begin{minipage}[b]{0.45\linewidth}
+	\centering
+		\subfigure[\emph{Wall}-Norte]{
+			\centering
+			\begin{tikzpicture}[scale=1.5]
+				\draw[-] (1,1) rectangle (3,3);
+				\draw[dashed, lightgray] (1,2) -- (3,2);
+				\draw[dashed, lightgray] (2,1) -- (2,3);
+				\draw[fill = black] (2,2) circle (0.06cm) 
+				     node[below, scale=0.8] {$p_{i,j}$};
+				\node[scale=0.8] at (2,3.2) {$\mathbf{u} = 0$};
+				\draw[fill = black] (2,1) circle (0.06cm) 
+				     node[below right, scale=0.8] {$v_{i,j-1/2}$};
+				\draw[fill = black] (3,2) circle (0.06cm) 
+				     node[right, scale=0.8] {$u_{i+1/2,j}$};
+				\draw[dashed, gray] (3,3) -- (3,4);
+				\draw[fill = gray, color=gray] (3,4) circle (0.06cm)
+				     node[right, scale=0.8, gray] {$u_{i+1/2,j+1}$};
+			\end{tikzpicture}
+		\label{norte} }
+	\end{minipage}
+	\begin{minipage}[b]{0.45\linewidth}
+	\centering
+		\subfigure[\emph{Wall}-Sul]{
+			\centering
+			\begin{tikzpicture}[scale=1.5]
+				\draw[-] (1,1) rectangle (3,3);
+				\draw[dashed, lightgray] (1,2) -- (3,2);
+				\draw[dashed, lightgray] (2,1) -- (2,3);
+				\draw[fill = black] (2,2) circle (0.06cm) 
+				     node[below, scale=0.8] {$p_{i,j}$};
+				\node[scale=0.8] at (2,0.8) {$\mathbf{u} = 0$};
+				\draw[fill = black] (2,3) circle (0.06cm) 
+				     node[above right, scale=0.8] {$v_{i,j+1/2}$};
+				\draw[fill = black] (3,2) circle (0.06cm) 
+				     node[right, scale=0.8] {$u_{i+1/2,j}$};
+				\draw[dashed, gray] (3,1) -- (3,0);
+				\draw[fill = gray, color=gray] (3,0) circle (0.06cm) 
+				     node[right, scale=0.8, gray] {$u_{i+1/2,j-1}$};
+			\end{tikzpicture}
+			\label{sul} }
+	\end{minipage}
+	\caption{Exemplo da utilização do pacote \texttt{tikz}.}
+	\label{fig:03}
+\end{figure}
+
+\subsection{Outros comandos}
+
+Outros comandos considerados padrão em \LaTeX também podem ser
+utilizados, como o pacote \texttt{pstool} e o comando \texttt{epsfig}.
+Figuras nos formatos \texttt{.png} e \texttt{.jpg} são desencorajadas,
+mas podem ser utilizadas, desde que em ótima resolução e máxima
+qualidade (sem compressão).
+
+\subsection{Tabelas}
+
+Tabelas seguem o padrão \LaTeX. A tabela \ref{tabela:01}  é um exemplo simples.
+
+\begin{framed}
+\begin{verbatim}
+\begin{table} [h]
+\caption{Exemplo de tabela.} \label{tabela:01}
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline  & A & B & C & D \\
+\hline
+\hline 0 & \multicolumn{1}{r|}{1.00}   & \multicolumn{1}{l|}{2.0}   
+         & \multicolumn{2}{c|}{7.0} \\
+\hline 1 & \multicolumn{1}{r|}{1.00}  & \multicolumn{1}{l|}{2.00}  
+         & 3.000  & 4.000  \\
+\hline 2 & \multicolumn{1}{r|}{1.000} & \multicolumn{1}{l|}{2.000} 
+         & 3.00   & 4.0000   \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+\end{verbatim}
+\end{framed}
+
+\begin{table} [h]
+\caption{Exemplo de tabela.} \label{tabela:01}
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline  & A & B & C & D \\
+\hline
+\hline 0 & \multicolumn{1}{r|}{1.00}   & \multicolumn{1}{l|}{2.0}   
+         & \multicolumn{2}{c|}{7.0} \\
+\hline 1 & \multicolumn{1}{r|}{1.00}  & \multicolumn{1}{l|}{2.00}  
+         & 3.000  & 4.000  \\
+\hline 2 & \multicolumn{1}{r|}{1.000} & \multicolumn{1}{l|}{2.000} 
+         & 3.00   & 4.0000   \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Algumas padronizações}
+
+\begin{itemize}
+
+\item Numerar apenas as equações a serem referenciadas;
+
+\item Para centralizar ou destacar equações, utilizar os comandos: 
+\verb!\begin{equation*}! e \verb!\end{equation*}!,
+ou simplesmente,
+\verb!\[! e \verb!\]!. 
+Estes comandos destacam as equações sem numerá-las.
+
+\item Para fazer referência a uma equação, utilizar a combinação 
+de comandos \verb!\label{}! e \verb!\ref{}! da seguinte forma: \\
+\begin{framed}
+\begin{verbatim}
+\begin{equation} \label{eqX}
+  equação
+\end{equation}
+A equação \verb!(\ref{eqX})! é usada para mostrar que...
+\end{verbatim}
+\end{framed}
+
+\item Evitar o uso excessivo de subseções;
+
+\item Evitar a utilização de espaçadores 
+\verb!\vspace!, \verb!\hspace!, etc.;
+
+\item Definições, lemas, proposições, teoremas, etc. devem
+ser numerados de acordo com a seção onde estão inseridos.  Há
+comandos pré-definidos para sua numeração automática, são eles:
+\texttt{defTEMAi}, \texttt{lemmaTEMA},  \texttt{thmTEMA} e 
+\texttt{coroTEMAi},
+para artigos em inglês, e  \texttt{defTEMAp}, \texttt{lemaTEMA}, 
+\texttt{teoTEMA} e \texttt{coroTEMAp}, para artigos em português.
+
+\item Para início e fim de demonstração utilize os comandos 
+\verb!\begin{proof}! e \verb!\end{proof}!, respectivamente.
+
+\item Em inglês, a palavra {\it Demonstração} será
+substituída automaticamente por {\it Proof};
+
+\begin{framed}
+\begin{verbatim}
+\begin{teoTEMA}[Desigualdade triangular]
+\label{teoDT}
+Se $a$, $b$ são números reais quaisquer, então
+\[ |a+b| \leq |a| + |b| \]
+\end{teoTEMA}
+\begin{proof}
+Coloque aqui a demonstração.
+\end{proof}
+\begin{coroTEMAp}
+Se $a_1, a_2, \ldots, a_n$ são $n$ números reais, então
+\[ |a_1+a_2+\cdots+a_n| \leq |a_1|+|a_2|+\cdots+|a_n|. \]
+\end{coroTEMAp}
+\end{verbatim}
+\end{framed}
+
+\begin{framed}
+\begin{teoTEMA}[Desigualdade triangular]
+\label{teoDT}
+Se $a$, $b$ são números reais quaisquer, então
+\[ |a+b| \leq |a| + |b| \]
+\end{teoTEMA}
+\begin{proof}
+Coloque aqui a demonstração.
+\end{proof}
+\begin{coroTEMAp}
+Se $a_1, a_2, \ldots, a_n$ são $n$ números reais, então
+\[ |a_1+a_2+\cdots+a_n| \leq |a_1|+|a_2|+\cdots+|a_n|. \]
+\end{coroTEMAp}
+\end{framed}
+
+\end{itemize}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Sobre referências bibliográficas}
+
+As referências bibliográficas devem ser feitas utilizando-se 
+o pacote \texttt{bibtex}. A revista TEMA adota o padrão IEEE-TR,
+que ordena as referências por ordem de citação, e inclui 
+uma abreviação padrão dos nomes dos autores. O autor deve 
+criar um arquivo formato \texttt{.bib} e incluí-lo no texto
+através dos comandos:
+
+\begin{framed}
+\begin{verbatim}
+\bibliographystyle{ieeetr}
+\bibliography{nome-do-arquivo}
+\end{verbatim}
+\end{framed}
+
+Um exemplo de arquivo \texttt{.bib} está descrito a seguir:
+\begin{framed}
+\begin{verbatim}
+@article{Ausas:2010,
+   Author = {Ausas, R F and Sousa, Fabricio S and Buscaglia, G C},
+   Journal = {Comput Methods Appl Mech Engrg},
+   Number = {17-20},
+   Pages = {1019-1031},
+   Title = {{An improved finite element space for 
+   discontinuous pressures}},
+   Volume = {199},
+   Year = {2010}}
+@inproceedings{Silva:2014,
+   Author = {Lino M. Silva and Aurelio R. L. Oliveira},
+   Booktitle = {Proceeding Series of the Brazilian Society of
+   Computational and Applied Mathematics},
+   Pages = {1-7},
+   Publisher = {SBMAC},
+   Title = {Melhoria do desempenho da fatora{\c c}{\~a}o 
+   controlada de {C}holesky no precondicionamento de sistemas 
+   lineares oriundos dos m{\'e}todos de pontos interiores},
+   Volume = {3},
+   Year = {2015}}
+   
+@phdthesis{Linhares:1968,
+   Address = {S{\~a}o Carlos, SP},
+   Author = {Odelar L. Linhares},
+   School = {EESC, Universidade de S\~ao Paulo},
+   Title = {Sobre a racionaliza{\c c}{\~a}o de dois 
+   algoritmos num{\'e}ricos},
+   Year = {1968}}
+@book{Leveque:1998,
+   Author = {Randall J. Leveque},
+   Publisher = {Cambridge},
+   Title = {Finite volume methods for hyperbolic problems},
+   Year = {1998}}
+\end{verbatim}
+\end{framed}
+
+As citações devem ser feitas com o comando \verb!\cite{}!.
+Como exemplo, as referências bibliográficas \cite{Chihara:1978,
+Leveque:1998} referem-se a livros, as referências
+\cite{Ausas:2010,Cordeiro:2013,Courant:1943} são artigos em
+periódicos, a referência \cite{Linhares:1968} é um exemplo de 
+tese de doutorado e finalmente as referências
+\cite{Gautschi:1981,Jones:1986,Silva:2014}
+referem-se a artigos em anais de congressos científicos.
+
+\section*{Agradecimentos}
+Aqui os autores poderão expressar seus agradecimentos a
+entidades ou pessoas que ajudaram de alguma forma a realização do
+trabalho. Agradecimentos a agências de fomento à pesquisa poderão
+ser feitas na página inicial usando notas de rodapé \verb!\thanks{}!
+ligadas ao título do trabalho ou autores. {\bf Este item é facultativo.}
+
+\begin{abstract}
+{\bf Abstract}. This document, which was prepared using the class
+file \texttt{TEMA.cls}, provides some important information for the
+authors who intend to submit papers to TEMA.
+\end{abstract}
+
+\bibliographystyle{ieeetr}
+\bibliography{Modelo-TEMA}
+
+\end{document}
