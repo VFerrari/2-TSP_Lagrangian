@@ -5,6 +5,11 @@ Lagrangian Relaxation framework, and 2-TSP solution.
 
 `report.pdf` is a full report on the solution, in Portuguese.
 
+## Team
+- André Soranzzo Mota         (166404)
+- Victor Ferreira Ferrari     (187890)
+- Gabriel Oliveira dos Santos (197460)
+
 ## Requirements
 No Python libraries are explicitly required, but to run the main files `main.py` and `main1.py`, the following libraries are required:
 
