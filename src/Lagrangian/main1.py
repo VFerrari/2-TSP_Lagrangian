@@ -50,8 +50,8 @@ def main():
                       'lagrangean_runtime': [],
                       'lagrangean_cost_value': []}
 
-    # for n in [100, 150, 200, 250, 300]:
-    for n in [10, 15]:
+    for n in [100, 150, 200, 250, 300]:
+
         # Create instance and solve
         two_tsp = generate_instance(n, seed)
         save_instance(filename="instance_{}.lp".format(n), dists=two_tsp.ins)
